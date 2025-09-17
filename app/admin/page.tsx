@@ -4,8 +4,10 @@ import React, { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-const AdminLogin: React.FC = () => {
+// Create a separate component that uses useSearchParams
+const AdminLoginContent: React.FC = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
@@ -94,6 +96,19 @@ const AdminLogin: React.FC = () => {
         </form>
       </div>
     </div>
+  );
+};
+
+// Main component that wraps the content with Suspense
+const AdminLogin: React.FC = () => {
+  return (
+    <Suspense fallback={
+      <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
+        <div className="text-lg">Loading...</div>
+      </div>
+    }>
+      <AdminLoginContent />
+    </Suspense>
   );
 };
 
