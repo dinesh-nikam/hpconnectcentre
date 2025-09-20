@@ -1,4 +1,3 @@
-import NextAuth from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoClient } from "mongodb";
@@ -44,7 +43,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  session: { strategy: "jwt" as const },
+  session: { strategy: "jwt" },
   pages: {
     signIn: "/admin",
     error: "/admin", 
@@ -59,11 +58,3 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
-
-const handler = NextAuth(authOptions);
-
-// Export the handler as named functions for API route
-export { handler as GET, handler as POST };
-
-// Export the auth options for use in other parts of the app
-export default handler;

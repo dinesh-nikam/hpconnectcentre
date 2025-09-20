@@ -1,5 +1,4 @@
-import NextAuth from "next-auth";
-import type { NextAuthOptions } from "next-auth";
+import type { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoClient } from "mongodb";
 
@@ -26,7 +25,7 @@ async function getAdmin(username: string) {
   return admin;
 }
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -59,11 +58,3 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
-
-const handler = NextAuth(authOptions);
-
-// Export the handler as named functions for API route
-export { handler as GET, handler as POST };
-
-// Export the auth options for use in other parts of the app
-export default handler;
